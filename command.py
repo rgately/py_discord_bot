@@ -6,7 +6,7 @@ class Command() :
     def set_key(self, key) :
         self.key = key
 
-    async def invoke(self, message, args) :
+    async def invoke(self, message, ctx, args) :
 
         try :
             print("invoking " + str(self.key) + " with args " + str(args))

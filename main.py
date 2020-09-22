@@ -23,6 +23,11 @@ def main() :
 async def on_ready() :
     print("Bot is ready.")
 
+@commands.command()
+async def leave(ctx) :
+    print("calling leave")
+    await ctx.voice_client.disconnect()
+
 @client.event
 async def on_message(message) :
     if not message.author.bot :
@@ -51,4 +56,5 @@ async def on_message(message) :
 
 
 if __name__ == "__main__" :
+    client.add_command(leave)
     main()

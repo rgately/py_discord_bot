@@ -11,8 +11,8 @@ class CryptoCommand(Command) :
     def __init__(self) :
         self.set_key("crypto")
 
-    async def invoke(self, message, args) :
-        await super().invoke(message, args)
+    async def invoke(self, message, ctx, args) :
+        await super().invoke(message, ctx, args)
 
         response = crypto_helper.get_price(args[0])
 
@@ -20,19 +20,26 @@ class CryptoCommand(Command) :
 
         if response == -1 :
             print("Currency not found.")
-            await message.channel.send("That currency is not available or does not exist")
+            await ctx.send("That currency is not available or does not exist")
             return
 
-        await message.channel.send(str(args[0]) + " : " + str(response))
+        await ctx.send(str(args[0]) + " : " + str(response))
 
 class ExitCommand(Command) :
 
     def __init__(self) :
         self.set_key("exit")
 
-    async def invoke(self, message, args) :
-        await super().invoke(message, args)
+    async def invoke(self, message, ctx, args) :
+        await super().invoke(message, ctx, args)
         exit(0)
+
+#class LeaveCommand(Command) :
+
+    #def __init__(self) :
+        #self.set_key("disconnect")
+
+    #async def invoke(self, message, args) :
 
 
 class MemeCommand(Command) :
@@ -71,8 +78,8 @@ class MemeCommand(Command) :
                     self.cache.append(post.url)
         print("Cache length is " + str(len(self.cache)))
 
-    async def invoke(self, message, args) :
-        await super().invoke(message, args)
+    async def invoke(self, message, ctx, args) :
+        await super().invoke(message, ctx, args)
 
         if len(self.cache) == 0 :
             self.pre_cache(num_posts = 50)
@@ -82,5 +89,5 @@ class MemeCommand(Command) :
         self.cache.remove(meme)
         print("Cache length is now " + str(len(self.cache)))
 
-        await message.channel.send(meme)
+        await ctx.send(meme)
 
